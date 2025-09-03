@@ -71,13 +71,56 @@ class Order extends CI_Controller {
                             );
 
             $data['action_container'] = "
-                <div class=\"row no-print\" id=\"place_order_controller\">
-                  <input type=\"hidden\" name=\"\" id=\"csv_cart_items\" value=\" $csv_cart_items\">
-                  <input type=\"hidden\" name=\"\" id=\"shipment_id\" value=\"$shipment_info->id;\">
-                  <div class=\" \">
-                    &nbsp;&nbsp;&nbsp;<button class=\"btn btn-success pull-right\" id=\"btn_place_order\"><i class=\"fa fa-credit-card\"></i> PLACE ORDER</button>
-                  </div>
-                </div>
+                <form action=\"" . site_url('order/payment') . "\" method=\"post\">
+                    <input type=\"hidden\" name=\"order_id\" value=\"\">
+                    <div class=\"radio-group row justify-content-between px-3 text-center a\">
+                        <label class=\"col-auto mr-sm-2 mx-1 card-block  py-0 text-center radio selected \">
+                            <input type=\"radio\" name=\"payment_method\" value=\"stripe\" checked class=\"d-none\">
+                            <div class=\"flex-row\">
+                                <div class=\"col\">
+                                    <div class=\"pic2\">
+                                        <img class=\"irc_mut img-fluid\" src=\"" . site_url('assets/images/stripe_secure.jpg') . "\" width=\"200\" height=\"200\">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class=\"col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  \">
+                            <input type=\"radio\" name=\"payment_method\" value=\"google_pay\" class=\"d-none\">
+                            <div class=\"flex-row\">
+                                <div class=\"col\">
+                                    <div class=\"pic2\">
+                                          <img class=\"irc_mut img-fluid\" src=\"" . site_url('assets/images/google_pay.jpg') . "\" width=\"200\" height=\"200\">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class=\"col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  \">
+                            <input type=\"radio\" name=\"payment_method\" value=\"paypal\" class=\"d-none\">
+                            <div class=\"flex-row\">
+                                <div class=\"col\">
+                                    <div class=\"pic2\">
+                                          <img class=\"irc_mut img-fluid\" src=\"" . site_url('assets/images/paypal.jpg') . "\" width=\"200\" height=\"200\">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class=\"col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  \">
+                            <input type=\"radio\" name=\"payment_method\" value=\"paymaya\" class=\"d-none\">
+                            <div class=\"flex-row\">
+                                <div class=\"col\">
+                                    <div class=\"pic2\">
+                                          <img class=\"irc_mut img-fluid\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Paymaya_logo.svg/684px-Paymaya_logo.svg.png\" width=\"200\" height=\"200\">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class=\"row justify-content-center\">
+                        <div class=\"col\">
+                            <button type=\"submit\" class=\"btn btn-primary\">Proceed to Payment</button>
+                        </div>
+                    </div>
+                </form>
             ";
 
 
@@ -150,110 +193,58 @@ class Order extends CI_Controller {
 
             // print('place order clicked!');
 
-             $data['action_container'] = "
-                       <div class=\"row no-print \" id=\"post_payment_container\">
-                        <div class=\" \">
-                          <button class=\"btn btn-default\" onclick=\"window.print();\"><i class=\"fa fa-print\"></i> Print</button>
-                          <button 
-                            class=\"btn btn-success pull-right\" 
-                            data-toggle=\"modal\" 
-                            data-target=\".payment_modal\"
-                            data-backdrop=\"static\" 
-                            data-keyboard=\"false\"
-                            >
-                            <i class=\"fa fa-credit-card\" id=\"submit_payment\"></i> Submit Payment
-                          </button>
-                          <button class=\"btn btn-primary pull-right\" style=\"margin-right: 5px;\" id=\"gen_pdf\"><i class=\"fa fa-download\"></i> Generate PDF</button>
-                        </div>
-                      </div>
-
-
-                          <!-- Payment modal -->
-                            <div class='modal fade payment_modal' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true'>
-                              <div class='modal-dialog modal-lg' style='max-width: 80% !important;'>
-                                <div class='modal-content'>
-                                  
-                                      <div class='modal-header'>
-                                        <h5 class='modal-title' id='exampleModalLabel'>PAYMENT OPTION</h5>
-                                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                          <span aria-hidden='true'>&times;</span>
-                                        </button>
-                                      </div>
-                                      <div class='modal-body'>
-                                         <div class='payment-cards'>
-                                           <h2 class='header'>
-                                              SELECT PAYMENT OPTIONS
-                                           </h2>
-                                           <div class='card-services' order_id='$order_id'>
-
-
-                                              <div class='card-content card-content-2'>
-                                                 <div class='fab fa-cc-amex'></div>
-                                                 <h3>
-                                                    American Express
-                                                 </h3>
-                                                 <p>
-                                                    Don't Leave Home Without Them
-                                                 </p>
-                                                 <a href='#' id='mop' pid='3'>Pay with<br>AmEx</a>
-                                              </div>
-
-                                              <div class='card-content card-content-2'>
-                                                 <div class='fab fa-cc-discover'></div>
-                                                 <h3>
-                                                    Discover
-                                                 </h3>
-                                                 <p>
-                                                    It pays to Discover
-                                                 </p>
-                                                 <a href='#' id='mop' pid='4'>Pay with<br>Discord</a>
-                                              </div>
-
-                                              <div class='card-content card-content-2'>
-                                                 <div class='fab fa-cc-visa'></div>
-                                                 <h3>
-                                                    Visa
-                                                 </h3>
-                                                 <p>
-                                                    Trust, Security, Acceptance, and Inclusion.
-                                                 </p>
-                                                 <a href='#' id='mop' pid='1'>Pay with<br>Visa</a>
-                                              </div>
-                                              <div class='card-content card-content-2'>
-                                                 <div class='fab fa-cc-mastercard'></div>
-                                                 <h3>
-                                                    Mastercard
-                                                 </h3>
-                                                 <p>
-                                                    There are some things money can't buy. For everything else there's Mastercard.
-                                                 </p>
-                                                 <a href='#' id='mop' pid='2'>Pay with<br>Mastercard</a>
-                                              </div>
-                                              <div class='card-content card-content-2'>
-                                                 <div class='fab fa-cc-paypal'></div>
-                                                 <h3>
-                                                    PAYPAL
-                                                 </h3>
-                                                 <p>
-                                                    We put people at the center of everything we do.
-                                                 </p>
-                                                 <a href='#' id='mop' pid='0'>Pay with<br>Paypal</a>
-                                              </div>
-                                           </div>
-                                        </div>
-
-
-                                      </div>
-                                      <div class='modal-footer'>
-                                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancel</button>
-                                      </div>
-
+            $data['action_container'] = "
+                <form action=\"" . site_url('order/payment') . "\" method=\"post\">
+                    <input type=\"hidden\" name=\"order_id\" value=\"" . $order_id . "\">
+                    <div class=\"radio-group row justify-content-between px-3 text-center a\">
+                        <label class=\"col-auto mr-sm-2 mx-1 card-block  py-0 text-center radio selected \">
+                            <input type=\"radio\" name=\"payment_method\" value=\"stripe\" checked class=\"d-none\">
+                            <div class=\"flex-row\">
+                                <div class=\"col\">
+                                    <div class=\"pic2\">
+                                        <img class=\"irc_mut img-fluid\" src=\"" . site_url('assets/images/stripe_secure.jpg') . "\" width=\"200\" height=\"200\">
+                                    </div>
                                 </div>
-                              </div>
-                            </div> <!-- payment modal -->
-
-
-             ";
+                            </div>
+                        </label>
+                        <label class=\"col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  \">
+                            <input type=\"radio\" name=\"payment_method\" value=\"google_pay\" class=\"d-none\">
+                            <div class=\"flex-row\">
+                                <div class=\"col\">
+                                    <div class=\"pic2\">
+                                          <img class=\"irc_mut img-fluid\" src=\"" . site_url('assets/images/google_pay.jpg') . "\" width=\"200\" height=\"200\">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class=\"col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  \">
+                            <input type=\"radio\" name=\"payment_method\" value=\"paypal\" class=\"d-none\">
+                            <div class=\"flex-row\">
+                                <div class=\"col\">
+                                    <div class=\"pic2\">
+                                          <img class=\"irc_mut img-fluid\" src=\"" . site_url('assets/images/paypal.jpg') . "\" width=\"200\" height=\"200\">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class=\"col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  \">
+                            <input type=\"radio\" name=\"payment_method\" value=\"paymaya\" class=\"d-none\">
+                            <div class=\"flex-row\">
+                                <div class=\"col\">
+                                    <div class=\"pic2\">
+                                          <img class=\"irc_mut img-fluid\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Paymaya_logo.svg/684px-Paymaya_logo.svg.png\" width=\"200\" height=\"200\">
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class=\"row justify-content-center\">
+                        <div class=\"col\">
+                            <button type=\"submit\" class=\"btn btn-primary\">Proceed to Payment</button>
+                        </div>
+                    </div>
+                </form>
+            ";
 
             $this->load->view('header',$data);
             $this->load->view('sidebar');
