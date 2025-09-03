@@ -294,13 +294,34 @@ class Order extends CI_Controller {
 
     //PAYMENT
     public function payment(){
-       $this->user_auth_model->login_required();
-       $data = $this->input->post();
-       $order_id = $data['order_id'];
-       $mop = $data['mop'];
+        $this->user_auth_model->login_required();
+        $payment_method = $this->input->post('payment_method');
+        $order_id = $this->input->post('order_id'); // You may need to pass this from the view
 
-       $this->mop_paypal($order_id);
-       print_r($data);
+        // Store order_id in session to retrieve it in the PaymayaPayment controller
+        $this->session->set_userdata('order_id', $order_id);
+
+        switch ($payment_method) {
+            case 'stripe':
+                // The stripe controller doesn't have a proper payment flow yet
+                // redirect('stripepayment/handlePayment');
+                echo "Stripe payment is not yet implemented.";
+                break;
+            case 'paypal':
+                 $this->mop_paypal($order_id);
+                break;
+            case 'paymaya':
+                redirect('paymayapayment/process_payment');
+                break;
+            case 'google_pay':
+                echo "Google Pay is not yet implemented.";
+                break;
+            default:
+                // Handle error or redirect to checkout
+                $this->session->set_flashdata('error_message', 'Invalid payment method selected.');
+                redirect('checkout');
+                break;
+        }
     }
 
     function mop_paypal($id){ 

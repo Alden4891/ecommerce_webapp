@@ -49,6 +49,11 @@ class Payment extends CI_Model{
 
 ; 
         return $insert?true:false; 
-    } 
+    }
+
+    public function insertTransaction_paymaya($data){
+        $insert = $this->db->insert($this->transTable, $data);
+        return $insert?true:false;
+    }
      
 }

@@ -219,40 +219,55 @@
                                                   <p> Not my prefered delivery address ? <span class=" ml-1 cursor-pointer"> Change</span> </p>
                                               </div>
                                           </div>
-                                          <div class="radio-group row justify-content-between px-3 text-center a">
-                                              <div class="col-auto mr-sm-2 mx-1 card-block  py-0 text-center radio selected ">
-                                                  <div class="flex-row">
-                                                      <div class="col">
-                                                          <div class="pic2">
-                                                              <a href="#">
-                                                                <img class="irc_mut img-fluid" src="<?=site_url('assets/images/stripe_secure.jpg')?>" width="200" height="200"> 
-                                                              </a>
+                                          <form action="<?= site_url('order/payment') ?>" method="post">
+                                              <div class="radio-group row justify-content-between px-3 text-center a">
+                                                  <label class="col-auto mr-sm-2 mx-1 card-block  py-0 text-center radio selected ">
+                                                      <input type="radio" name="payment_method" value="stripe" checked class="d-none">
+                                                      <div class="flex-row">
+                                                          <div class="col">
+                                                              <div class="pic2">
+                                                                  <img class="irc_mut img-fluid" src="<?=site_url('assets/images/stripe_secure.jpg')?>" width="200" height="200">
+                                                              </div>
                                                           </div>
-                                                          
                                                       </div>
+                                                  </label>
+                                                  <label class="col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  ">
+                                                      <input type="radio" name="payment_method" value="google_pay" class="d-none">
+                                                      <div class="flex-row">
+                                                          <div class="col">
+                                                              <div class="pic2">
+                                                                    <img class="irc_mut img-fluid" src="<?=site_url('assets/images/google_pay.jpg')?>" width="200" height="200">
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </label>
+                                                  <label class="col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  ">
+                                                      <input type="radio" name="payment_method" value="paypal" class="d-none">
+                                                      <div class="flex-row">
+                                                          <div class="col">
+                                                              <div class="pic2">
+                                                                    <img class="irc_mut img-fluid" src="<?=site_url('assets/images/paypal.jpg')?>" width="200" height="200">
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </label>
+                                                  <label class="col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  ">
+                                                      <input type="radio" name="payment_method" value="paymaya" class="d-none">
+                                                      <div class="flex-row">
+                                                          <div class="col">
+                                                              <div class="pic2">
+                                                                    <img class="irc_mut img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Paymaya_logo.svg/684px-Paymaya_logo.svg.png" width="200" height="200">
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                  </label>
+                                              </div>
+                                              <div class="row justify-content-center">
+                                                  <div class="col">
+                                                      <button type="submit" class="btn btn-primary">Proceed to Payment</button>
                                                   </div>
                                               </div>
-                                              <div class="col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  ">
-                                                  <div class="flex-row">
-                                                      <div class="col">
-                                                          <div class="pic2"> 
-                                                                <img class="irc_mut img-fluid" src="<?=site_url('assets/images/google_pay.jpg')?>" width="200" height="200"> 
-                                                          </div>
-                                                         
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                              <div class="col-auto ml-sm-2 mx-1 card-block  py-0 text-center radio  ">
-                                                  <div class="flex-row">
-                                                      <div class="col">
-                                                          <div class="pic2"> 
-                                                                <img class="irc_mut img-fluid" src="<?=site_url('assets/images/paypal.jpg')?>" width="200" height="200"> 
-                                                          </div>
-                                                          
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
+                                          </form>
                                           <div class="row justify-content-center">
                                               <div class="col">
                                                   <p class="text-muted">Select your prefered payment option.</p>
