@@ -152,7 +152,20 @@ Class Order_model extends CI_Model{
          return $this->db->get_where('`tbl_orders`', array('`id`' => $id))->result();
    	}
 	
+    public function update_order_status($order_id, $status) {
+        $status_id = 0;
+        switch ($status) {
+            case 'Paid':
+                $status_id = 2; // Assuming 2 is the status ID for 'Paid'
+                break;
+            // Add other cases as needed
+        }
 
+        if ($status_id > 0) {
+            $this->db->where('id', $order_id);
+            $this->db->update('tbl_orders', array('status_id' => $status_id));
+        }
+    }
 
 }
 
